@@ -1,57 +1,64 @@
 <script setup>
-// HomeView.vue —— 首页（文章列表 + 搜索 + 分类筛选 + 统计）
-// 演示知识点：组合多个子组件、从全局 store 读写状态、computed 传值给子组件、
-//            onMounted 生命周期钩子
-import { computed, onMounted } from 'vue'
-import { blogStore } from '../store/blog'
-import StatBar from '../components/StatBar.vue'
-import SearchBar from '../components/SearchBar.vue'
-import CategoryFilter from '../components/CategoryFilter.vue'
-import PostList from '../components/PostList.vue'
+// HomeView.vue —— 首页：打招呼 + 计数器
+// 演示知识点：ref、事件处理、生命周期 onMounted、组件复用与插槽传内容
+import { ref, onMounted } from 'vue'
+import BaseCard from '../components/BaseCard.vue'
+import Greeting from '../components/Greeting.vue'
+import Counter from '../components/Counter.vue'
+import BaseButton from '../components/BaseButton.vue'
 
-// 把 store 里的统计对象转换成 StatBar 需要的数组
-const statItems = computed(() => [
-  { label: '文章', value: blogStore.stats.postCount },
-  { label: '标签', value: blogStore.stats.tagCount },
-  { label: '评论', value: blogStore.stats.commentCount }
-])
+const name = ref('')
+function greet() {
+  name.value = name.value ? '' : '同学' // 有名字就清空，没名字就设为「同学」
+}
 
 onMounted(() => {
-  // 生命周期钩子：进入首页时打印一句提示（也可在此加载远程数据）
-  console.log('首页已挂载，当前共有', blogStore.posts.length, '篇文章')
+  console.log('首页已挂载')
 })
 </script>
 
 <template>
   <section>
-    <div class="hero">
-      <h1 class="h1">拾光博客</h1>
-      <p class="sub">记录前端学习与生活碎片的角落</p>
-    </div>
+    <h1 class="h1">欢迎来玩「小待办」✨</h1>
 
-    <StatBar :items="statItems" />
+    <BaseCard>
+      <div class="row">
+        <!-- 把 name 通过 props 传给 Greeting；按钮文字放在 BaseButton 的插槽里 -->
+        <Greeting :name="name" />
+        <BaseButton @click="greet">{{ name ? '重置' : '打个招呼' }}</BaseButton>
+      </div>
+    </BaseCard>
 
-    <!-- v-model 双向绑定搜索关键词到全局 store -->
-    <SearchBar v-model="blogStore.search" />
-    <!-- v-model 双向绑定当前选中分类 -->
-    <CategoryFilter v-model="blogStore.activeCategory" :categories="blogStore.categories" />
+    <BaseCard>
+      <h3 class="h3">这是个计数器（演示 ref + computed）</h3>
+      <Counter />
+    </BaseCard>
 
-    <!-- 过滤后的列表来自 store 的 computed，随搜索/分类自动变化 -->
-    <PostList :posts="blogStore.filteredPosts" />
+    <p class="tip">顶部点「待办」去管理清单，点「关于」看简介和留言表单。</p>
   </section>
 </template>
 
 <style scoped>
-.hero {
-  text-align: center;
-  margin: 12px 0 24px;
-}
 .h1 {
-  margin: 0;
-  font-size: 30px;
+  margin: 6px 0 18px;
+  font-size: 26px;
 }
-.sub {
-  margin: 6px 0 0;
+.h3 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.row h2 {
+  margin: 0;
+}
+.tip {
+  margin-top: 18px;
   color: var(--muted);
+  font-size: 14px;
 }
 </style>

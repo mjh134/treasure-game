@@ -1,6 +1,6 @@
 <script setup>
-// AppHeader.vue —— 页头，内部组合了 NavBar 和 ThemeToggle
-// 演示知识点：组件嵌套、默认插槽 <slot>（父组件可往里塞内容）
+// AppHeader.vue —— 页头：左边站点名，右边导航 + 主题按钮
+// 演示知识点：组件嵌套（引入 NavBar、ThemeToggle）
 import NavBar from './NavBar.vue'
 import ThemeToggle from './ThemeToggle.vue'
 </script>
@@ -8,10 +8,9 @@ import ThemeToggle from './ThemeToggle.vue'
 <template>
   <header class="header">
     <div class="container inner">
-      <NavBar blog-title="拾光博客" />
+      <span class="logo">✅ 小待办</span>
       <div class="right">
-        <!-- 预留插槽：父组件（App.vue）可以往页头里追加任意内容 -->
-        <slot />
+        <NavBar />
         <ThemeToggle />
       </div>
     </div>
@@ -20,9 +19,6 @@ import ThemeToggle from './ThemeToggle.vue'
 
 <style scoped>
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
   background: var(--card);
   border-bottom: 1px solid var(--border);
 }
@@ -32,9 +28,13 @@ import ThemeToggle from './ThemeToggle.vue'
   justify-content: space-between;
   height: 60px;
 }
+.logo {
+  font-weight: 700;
+  font-size: 18px;
+}
 .right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 </style>

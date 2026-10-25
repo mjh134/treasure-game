@@ -1,9 +1,9 @@
 {
-  "name": "vue-simple-blog",
+  "name": "vue-simple-todo",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "实验三：使用 Vue 3 实现的简单个人博客（纯前端）",
+  "description": "实验三：使用 Vue 3 实现的极简待办网站（纯前端）",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

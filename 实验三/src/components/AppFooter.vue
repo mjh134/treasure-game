@@ -1,6 +1,6 @@
 <script setup>
 // AppFooter.vue —— 页脚
-// 演示知识点：插值表达式、计算属性、静态文案
+// 演示知识点：插值表达式、computed 计算属性
 import { computed } from 'vue'
 
 const year = computed(() => new Date().getFullYear())
@@ -9,8 +9,7 @@ const year = computed(() => new Date().getFullYear())
 <template>
   <footer class="footer">
     <div class="container">
-      <p class="line">拾光博客 · 一个用 Vue 3 做的课程实验站点</p>
-      <p class="copy">© {{ year }} Shiguang Blog · Powered by Vue + Vite · 仅用于学习</p>
+      <p>© {{ year }} 小待办 · 用 Vue 3 做的课程实验 · 仅用于学习</p>
     </div>
   </footer>
 </template>
@@ -19,16 +18,12 @@ const year = computed(() => new Date().getFullYear())
 .footer {
   background: var(--card);
   border-top: 1px solid var(--border);
-  padding: 22px 0;
+  padding: 18px 0;
   text-align: center;
-}
-.line {
-  margin: 0 0 4px;
-  font-size: 14px;
-}
-.copy {
-  margin: 0;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--muted);
+}
+.footer p {
+  margin: 0;
 }
 </style>

@@ -1,21 +1,14 @@
 <script setup>
 // ThemeToggle.vue —— 明/暗主题切换按钮
-// 演示知识点：inject 使用祖先 provide 的响应式值、插值表达式、事件绑定
+// 演示知识点：inject 使用祖先 provide 的值、插值、事件绑定、三元表达式
 import { inject } from 'vue'
 
-// 从 App.vue 注入的 theme（ref）和 toggleTheme（函数）
-const theme = inject('theme')
-const toggleTheme = inject('toggleTheme')
+const theme = inject('theme') // App.vue 提供的 ref
+const toggleTheme = inject('toggleTheme') // App.vue 提供的函数
 </script>
 
 <template>
-  <button class="btn ghost toggle" @click="toggleTheme" :title="theme === 'light' ? '切换到暗色' : '切换到亮色'">
+  <button class="btn ghost" @click="toggleTheme">
     {{ theme === 'light' ? '🌙 暗色' : '☀️ 亮色' }}
   </button>
 </template>
-
-<style scoped>
-.toggle {
-  white-space: nowrap;
-}
-</style>
